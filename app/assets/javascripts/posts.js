@@ -6,6 +6,8 @@ $(document).on("turbolinks:load", function() {
 
   // Set up the selectize on the target element.
   $(".selectize").selectize({
+    plugins: ['remove_button'],
+
     // When the `add ...` button is clicked
     create: function(input, callback) {
       // Store the ref to the callback so that we can notify the selectize when we are done.
