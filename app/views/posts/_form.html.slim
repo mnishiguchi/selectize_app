@@ -1,0 +1,44 @@
+= form_for(post) do |f|
+  - if post.errors.any?
+    #error_explanation
+      h2
+        = pluralize(post.errors.count, "error")
+        | prohibited this post from being saved:
+      ul
+        - post.errors.full_messages.each do |message|
+          li= message
+  .form-group
+    = f.label :title
+    = f.text_field :title, class: "form-control"
+  .form-group
+    = f.label :body
+    = f.text_area :body, class: "form-control"
+    
+  -# Seleclize is applied to this field
+  .form-group
+    = f.label :category_ids, "Categories"
+    = f.select :category_ids, Category.all.pluck(:name, :id), {}, { multiple: true, class: "selectize" }
+  
+  .form-group
+    = f.submit class: "btn btn-primary"
+
+-# The add-form modal
+.modal.fade.new_category_modal [aria-labelledby="categoryModalLabel" role="dialog" tabindex="-1"] 
+  .modal-dialog.modal-sm [role="document"] 
+    .modal-content
+      .modal-header
+        button.close [aria-label="Close" data-dismiss="modal" type="button"] 
+          span[aria-hidden="true"]  
+            | ×
+        h4#categoryModalLabel.modal-title 
+          | Add Category
+      .modal-body
+        = form_for Category.new do |f|
+          .form-group
+            = f.label :name
+            = f.text_field :name, class: "form-control"
+          .form-group
+            = f.label :description
+            = f.text_area :description, class: "form-control"
+          .form-group
+            = f.submit class: "btn btn-primary"
