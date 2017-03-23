@@ -59,3 +59,4 @@ end
 
 gem 'selectize-rails'
 gem 'slim-rails'
+gem 'erd'
